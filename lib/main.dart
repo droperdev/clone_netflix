@@ -23,62 +23,6 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: IconButton(
-          icon: new Image.asset(
-            'assets/logo.png',
-            height: 48,
-          ),
-          onPressed: null,
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Center(
-              child: Text(
-                'PRIVACIDAD',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: Center(
-              child: Text(
-                'AYUDA',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 8.0),
-            child: Center(
-              child: GestureDetector(
-                onTap: () {
-                  print('Navigation Login');
-                },
-                child: Text(
-                  'INICIAR SESIÓN',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
       body: ContentWelcome(),
     );
   }
@@ -95,9 +39,74 @@ class _ContentWelcomeState extends State<ContentWelcome> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black,
+      decoration: _current == 3
+          ? BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(
+                    "https://images.unsplash.com/photo-1579202673506-ca3ce28943ef"),
+                fit: BoxFit.cover,
+              ),
+            )
+          : BoxDecoration(color: Colors.black),
       child: Column(
         children: [
+          AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            title: IconButton(
+              icon: new Image.asset(
+                'assets/logo.png',
+                height: 48,
+              ),
+              onPressed: null,
+            ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Center(
+                  child: Text(
+                    'PRIVACIDAD',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: Center(
+                  child: Text(
+                    'AYUDA',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0, right: 8.0),
+                child: Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      print('Navigation Login');
+                    },
+                    child: Text(
+                      'INICIAR SESIÓN',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
           Expanded(
             child: CarouselSlider(
               carouselController: buttonCarouselController,
@@ -105,18 +114,45 @@ class _ContentWelcomeState extends State<ContentWelcome> {
                 (i) {
                   return Builder(builder: (context) {
                     return Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: EdgeInsets.symmetric(horizontal: 5.0),
-                        decoration: BoxDecoration(color: Colors.amber),
-                        child: Text(
-                          'text $i',
-                          style: TextStyle(fontSize: 16.0),
-                        ));
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          new Image.asset(
+                            'assets/logo.png',
+                            height: 60.0,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'Tú decides cómo lo ves',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.0,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'En tu teléfono, tablet, computadora y TV \n sin costo extra.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
                   });
                 },
               ).toList(),
               options: CarouselOptions(
                   initialPage: 0,
+                  enableInfiniteScroll: false,
                   viewportFraction: 1,
                   height: MediaQuery.of(context).size.height,
                   onPageChanged: (index, _) {
@@ -133,7 +169,10 @@ class _ContentWelcomeState extends State<ContentWelcome> {
               return Container(
                 width: 8.0,
                 height: 8.0,
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                margin: EdgeInsets.symmetric(
+                  vertical: 10.0,
+                  horizontal: 2.0,
+                ),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: _current == index ? _redColor : _greyColor,
